@@ -11,7 +11,7 @@ class ListGroup extends React.PureComponent {
     return (
       <ul className='list-group list-group-flush'>
         {tasks.map((task) => {
-          return <ListItem data={task} key={task.id} />
+          return <ListItem task={task} key={task.id} />
         })}
       </ul>
     );
