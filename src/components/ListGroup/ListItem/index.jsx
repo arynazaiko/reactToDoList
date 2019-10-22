@@ -5,41 +5,28 @@ import connect from "../../connect";
 import './styles.scss';
 
 class ListItem extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      params: {
-        isCompleted: false,
-      }
-    };
-  }
+  handleComplete = (taskId) => {
+    const { completeTaskThunk } = this.props;
 
-  handleClick = (e) => {
-    const { params } = this.state;
-
-    e.preventDefault();
-    this.setState({
-      params: { ...params, isCompleted: true },
-    });
+    completeTaskThunk(taskId);
   }
 
   render() {
-    const { data } = this.props;
-    const { params } = this.state;
+    const { task } = this.props;
 
     const classNames = classnames('list-group-item item-container', {
-      ["list-group-item-dark"]: params.isCompleted,
+      ["list-group-item-dark"]: task.isCompleted,
     });
 
     return (
       <li className={classNames}>
-        <button type="submit" className="btn btn-danger btn-sm" onClick={this.handleClick}>Done</button>
+        <button type="button" className="btn btn-danger btn-sm" onClick={() => this.handleComplete(task.id)}>Done</button>
         <div className="task-container">
           <h5>
-            {data.name}
+            {task.name}
           </h5>
           <div className="text-muted">
-            {data.description}
+            {task.description}
           </div>
         </div>
       </li>
