@@ -1,21 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import connect from '../connect';
+import ListItem from "./ListItem";
 
-import ListItem from './ListItem';
+import "./styles.scss";
 
-class ListGroup extends React.PureComponent {
-  render() {
-    const { tasks } = this.props;
+const ListGroup = ({ tasks, onComplete }) => {
+  return (
+    <ul className="list-group list-group-flush list-container">
+      {tasks.map(task => {
+        return <ListItem task={task} key={task.id} onComplete={onComplete} />;
+      })}
+    </ul>
+  );
+};
 
-    return (
-      <ul className='list-group list-group-flush'>
-        {tasks.map((task) => {
-          return <ListItem task={task} key={task.id} />
-        })}
-      </ul>
-    );
-  }
-}
-
-export default connect(ListGroup);
+export default ListGroup;
