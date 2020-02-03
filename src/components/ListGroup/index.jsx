@@ -4,11 +4,11 @@ import ListItem from "./ListItem";
 
 import "./styles.scss";
 
-const ListGroup = ({ tasks, onComplete }) => {
+const ListGroup = ({ tasks, onComplete, onEdit }) => {
   return (
-    <ul className="list-group list-group-flush list-container">
+    <ul className="list-group">
       {tasks.map(task => {
-        return <ListItem task={task} key={task.id} onComplete={onComplete} />;
+        return <ListItem task={task} key={task.id} onComplete={onComplete} onEdit={onEdit} />;
       })}
     </ul>
   );

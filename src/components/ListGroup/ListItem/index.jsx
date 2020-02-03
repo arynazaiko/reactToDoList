@@ -3,27 +3,32 @@ import classnames from "classnames";
 
 import "./styles.scss";
 
-const ListItem = ({ onComplete, task }) => {
-  const handleComplete = taskId => {
-    onComplete(taskId);
+const ListItem = ({ onComplete, onEdit, task }) => {
+  const handleComplete = () => {
+    onComplete(task.id);
   };
 
-  const classNames = classnames("list-group-item item-container", {
-    ["list-group-item-dark"]: task.isCompleted
+  const handleEdit = () => {
+    onEdit(task.id);
+  };
+
+  const classNames = classnames("task-container", {
+    ["list-group-item-done"]: task.isCompleted
   });
 
   return (
-    <li className={classNames}>
+    <li className="list-group-item">
       <button
         type="button"
-        className="btn btn-danger btn-sm"
-        onClick={() => handleComplete(task.id)}
+        className="btn"
+        onClick={handleComplete}
       >
         Done
       </button>
-      <div className="task-container">
-        <h5>{task.name}</h5>
-        <div className="text-muted">{task.description}</div>
+      <div className={classNames}>
+        <span className="task-name">{task.name}</span>
+        <div>{task.description}</div>
+        <button type="button" onClick={handleEdit}>edit</button>
       </div>
     </li>
   );
