@@ -7,6 +7,7 @@ const defaultTask = {
   name: '',
   description: '',
   isCompleted: false,
+  id: null,
 }
 
 const taskReducer = (state = defaultState, action) => {
@@ -29,8 +30,16 @@ const taskReducer = (state = defaultState, action) => {
 
       return {
         ...state,
-        tasks: tasks
+        tasks: tasks,
       };
+
+      case "EDIT_TASK":
+        tasks = state.tasks.map(task => task.id === action.payload.id ? { ...task, ...action.payload } : task);
+
+        return {
+          ...state,
+          tasks: tasks,
+        };
 
     default:
       return state;

@@ -1,42 +1,87 @@
 import React from "react";
 
-import Modal from './Modal';
-import ListGroup from './ListGroup';
-import connect from './connect';
+import Modal from "./Modal";
+import ListGroup from "./ListGroup";
+import connect from "./connect";
 
-import './styles.scss';
+import "./styles.scss";
 
 class MainPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
-    }
+      isOpenCreateTaskModal: false,
+      editTaskId: null
+    };
   }
 
   handleOpen = () => {
     this.setState({
-      isOpen: true,
-    })
-  }
+      isOpenCreateTaskModal: true
+    });
+  };
 
   handleClose = () => {
     this.setState({
-      isOpen: false,
-    })
-  }
+      isOpenCreateTaskModal: false
+    });
+  };
+
+  handleOpenEditModal = id => {
+    this.setState({
+      editTaskId: id
+    });
+  };
+
+  handleCloseEditModal = () => {
+    this.setState({
+      editTaskId: null
+    });
+  };
+
+  getEditedTask = () => {
+    const { editTaskId } = this.state;
+    const { tasks } = this.props;
+
+    return tasks.find(task => task.id === editTaskId);
+  };
 
   render() {
-    const { isOpen } = this.state;
-    const { createTaskThunk, completeTaskThunk, tasks } = this.props;
+    const { isOpenCreateTaskModal, editTaskId } = this.state;
+    const {
+      createTaskThunk,
+      completeTaskThunk,
+      editTaskThunk,
+      tasks
+    } = this.props;
 
     return (
-     <div className="container">
-        <button type="button" className="btn-add-task" onClick={this.handleOpen}>+</button>
-        {/* <div className="divider"></div> */}
-        <Modal onSubmit={createTaskThunk} isModalOpen={isOpen} onClose={this.handleClose} />
-        <ListGroup tasks={tasks} onComplete={completeTaskThunk} />
-     </div>
+      <div className="container">
+        <button
+          type="button"
+          className="btn-add-task"
+          onClick={this.handleOpen}
+        >
+          +
+        </button>
+        <ListGroup
+          tasks={tasks}
+          onComplete={completeTaskThunk}
+          onEdit={this.handleOpenEditModal}
+        />
+
+        {isOpenCreateTaskModal ? (
+          <Modal onSubmit={createTaskThunk} onClose={this.handleClose} />
+        ) : ''}
+
+        {editTaskId ? (
+          <Modal
+            onSubmit={editTaskThunk}
+            onClose={this.handleCloseEditModal}
+            editedTask={this.getEditedTask()}
+          />
+        ) : ''}
+      </div>
     );
   }
 }

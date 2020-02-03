@@ -1,7 +1,6 @@
 import React from "react";
-import classnames from "classnames";
 
-import './styles.scss';
+import "./styles.scss";
 
 class Modal extends React.PureComponent {
   constructor(props) {
@@ -9,12 +8,23 @@ class Modal extends React.PureComponent {
     this.state = {
       params: {
         name: "",
-        description: "",
+        description: ""
       }
     };
   }
 
-  handleChangeName = (e) => {
+  componentDidMount() {
+    const { params } = this.state;
+    const { editedTask } = this.props;
+
+    if (editedTask) {
+      this.setState({
+        params: { ...params, ...editedTask },
+      });
+    }
+  }
+
+  handleChangeName = e => {
     const { params } = this.state;
 
     this.setState({
@@ -22,8 +32,7 @@ class Modal extends React.PureComponent {
     });
   };
 
-
-  handleChangeDescription = (e) => {
+  handleChangeDescription = e => {
     const { params } = this.state;
 
     this.setState({
@@ -31,26 +40,28 @@ class Modal extends React.PureComponent {
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     const { params } = this.state;
     const { onSubmit, onClose } = this.props;
 
     e.preventDefault();
     onSubmit(params);
     onClose();
+
+    this.setState({
+      params: {
+        name: "",
+        description: ""
+      }
+    });
   };
 
   render() {
-    const { name, description } = this.state;
-    const { isModalOpen, onClose } = this.props;
-
-    const classNames = classnames({
-      ["modal-container close-modal"]: !isModalOpen,
-      ["modal-container open-modal"]: isModalOpen,
-    });
+    const { name, description } = this.state.params;
+    const { onClose } = this.props;
 
     return (
-      <div className={classNames}>
+      <div className="modal-container">
         <form>
           <div className="form-group">
             <label htmlFor="name">Task name</label>
@@ -75,8 +86,16 @@ class Modal extends React.PureComponent {
             />
           </div>
           <div className="buttons-container">
-            <button type="submit" className="submit-btn" onClick={this.handleSubmit}>Submit</button>
-            <button type="button" className="close-btn" onClick={onClose}>Close</button>
+            <button
+              type="submit"
+              className="submit-btn"
+              onClick={this.handleSubmit}
+            >
+              Submit
+            </button>
+            <button type="button" className="close-btn" onClick={onClose}>
+              Close
+            </button>
           </div>
         </form>
       </div>

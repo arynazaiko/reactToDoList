@@ -7,3 +7,7 @@ export const createTaskThunk = (task) => dispatch => {
 export const completeTaskThunk = (taskId) => dispatch => {
   dispatch(actions.completeTask(taskId));
 };
+
+export const editTaskThunk = (task) => dispatch => {
+  dispatch(actions.editTask(task));
+};

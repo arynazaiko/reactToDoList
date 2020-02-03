@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
 
-import { createTaskThunk, completeTaskThunk } from "../redux/thunks";
+import { createTaskThunk, completeTaskThunk, editTaskThunk } from "../redux/thunks";
 
 const mapStateToProps = (state) => {
   const { tasks } = state;
@@ -14,6 +13,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   createTaskThunk: createTaskThunk,
   completeTaskThunk: completeTaskThunk,
+  editTaskThunk: editTaskThunk,
 };
 
 export default connect(
