@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import Modal from "./Modal";
 import ListGroup from "./ListGroup";
@@ -84,6 +85,20 @@ class MainPage extends React.PureComponent {
       </div>
     );
   }
+}
+
+MainPage.propTypes = {
+  createTaskThunk: PropTypes.func.isRequired,
+  completeTaskThunk: PropTypes.func.isRequired,
+  editTaskThunk: PropTypes.func.isRequired,
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      isCompleted: PropTypes.bool.isRequired,
+      id: PropTypes.number.isRequired
+    }).isRequired,
+  )
 }
 
 export default connect(MainPage);

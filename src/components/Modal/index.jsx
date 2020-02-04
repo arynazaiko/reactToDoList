@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import "./styles.scss";
 
@@ -19,7 +20,7 @@ class Modal extends React.PureComponent {
 
     if (editedTask) {
       this.setState({
-        params: { ...params, ...editedTask },
+        params: { ...params, ...editedTask }
       });
     }
   }
@@ -102,5 +103,20 @@ class Modal extends React.PureComponent {
     );
   }
 }
+
+Modal.propTypes = {
+  editedTask: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    isCompleted: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired
+  }),
+  onSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired
+};
+
+Modal.defaultProps = {
+  editedTask: null,
+};
 
 export default Modal;
