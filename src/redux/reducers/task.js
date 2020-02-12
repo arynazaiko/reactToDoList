@@ -41,6 +41,17 @@ const taskReducer = (state = defaultState, action) => {
           tasks: tasks,
         };
 
+        case "DELETE_TASK":
+          tasks = state.tasks.filter(task => task.id !== action.payload);
+          // let taskIndex = state.tasks.findIndex(task => task.id === action.payload);
+          // tasks = state.tasks;
+          // tasks.splice(taskIndex, 1); // more complicated way to delete task from the array
+
+          return {
+            ...state,
+            tasks: tasks,
+          };
+
     default:
       return state;
   }

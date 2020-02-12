@@ -23,10 +23,17 @@
 }
 
 .task-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
   padding: 6px 12px;
   border-radius: 6px;
   background-color: #F3F3F3;
-  width: 76%;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .list-group-item-done {
@@ -38,4 +45,20 @@
   font-size: 16px;
   font-weight: 500;
   color: #292929;
+}
+
+.btn-group {
+  button {
+    font-size: 16px;
+    padding: 6px;
+    border: none;
+    color: #292929;
+    background: none;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      color: #FF3384;
+    }
+  }
 }
