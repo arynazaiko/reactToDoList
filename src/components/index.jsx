@@ -53,6 +53,7 @@ class MainPage extends React.PureComponent {
       createTaskThunk,
       completeTaskThunk,
       editTaskThunk,
+      deleteTaskThunk,
       tasks
     } = this.props;
 
@@ -63,12 +64,13 @@ class MainPage extends React.PureComponent {
           className="btn-add-task"
           onClick={this.handleOpen}
         >
-          +
+          <i className="fas fa-plus"></i>
         </button>
         <ListGroup
           tasks={tasks}
           onComplete={completeTaskThunk}
           onEdit={this.handleOpenEditModal}
+          onDelete={deleteTaskThunk}
         />
 
         {isOpenCreateTaskModal ? (
@@ -91,6 +93,7 @@ MainPage.propTypes = {
   createTaskThunk: PropTypes.func.isRequired,
   completeTaskThunk: PropTypes.func.isRequired,
   editTaskThunk: PropTypes.func.isRequired,
+  deleteTaskThunk: PropTypes.func.isRequired,
   tasks: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,

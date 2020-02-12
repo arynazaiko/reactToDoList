@@ -5,7 +5,7 @@ import ListItem from "./ListItem";
 
 import "./styles.scss";
 
-const ListGroup = ({ tasks, onComplete, onEdit }) => {
+const ListGroup = ({ tasks, onComplete, onEdit, onDelete }) => {
   return (
     <ul className="list-group">
       {tasks.map(task => {
@@ -15,6 +15,7 @@ const ListGroup = ({ tasks, onComplete, onEdit }) => {
             key={task.id}
             onComplete={onComplete}
             onEdit={onEdit}
+            onDelete={onDelete}
           />
         );
       })}
@@ -25,6 +26,7 @@ const ListGroup = ({ tasks, onComplete, onEdit }) => {
 ListGroup.propTypes = {
   onComplete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   tasks: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
