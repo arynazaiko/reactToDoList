@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Modal from "./Modal";
 import ListGroup from "./ListGroup";
+import CreateTaskModal from "./CreateTaskModal";
+import EditTaskModal from "./EditTaskModal";
 import connect from "./connect";
 
 import "./styles.scss";
@@ -74,16 +75,23 @@ class MainPage extends React.PureComponent {
         />
 
         {isOpenCreateTaskModal ? (
-          <Modal onSubmit={createTaskThunk} onClose={this.handleClose} />
-        ) : ''}
+          <CreateTaskModal
+            onSubmit={createTaskThunk}
+            onClose={this.handleClose}
+          />
+        ) : (
+          ""
+        )}
 
         {editTaskId ? (
-          <Modal
+          <EditTaskModal
             onSubmit={editTaskThunk}
             onClose={this.handleCloseEditModal}
             editedTask={this.getEditedTask()}
           />
-        ) : ''}
+        ) : (
+          ""
+        )}
       </div>
     );
   }
@@ -100,8 +108,8 @@ MainPage.propTypes = {
       description: PropTypes.string,
       isCompleted: PropTypes.bool.isRequired,
       id: PropTypes.number.isRequired
-    }).isRequired,
+    }).isRequired
   )
-}
+};
 
 export default connect(MainPage);

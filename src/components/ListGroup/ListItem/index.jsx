@@ -18,7 +18,7 @@ const ListItem = ({ onComplete, onEdit, onDelete, task }) => {
   };
 
   const classNames = classnames("task-container", {
-    ["list-group-item-done"]: task.isCompleted
+    "list-group-item-done": task.isCompleted
   });
 
   return (
