@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import ModalComponent from "../CommonModal";
+
 import "./styles.scss";
 
-class Modal extends React.PureComponent {
+class EditTaskModal extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,54 +59,56 @@ class Modal extends React.PureComponent {
     });
   };
 
-  render() {
+  createTaskForm = () => {
     const { name, description } = this.state.params;
     const { onClose } = this.props;
 
     return (
-      <div className="modal-container">
-        <form>
-          <div className="form-group">
-            <label htmlFor="name">Task name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              placeholder="Task name"
-              value={name}
-              onChange={this.handleChangeName}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <input
-              type="text"
-              className="form-control"
-              id="description"
-              placeholder="Task description"
-              value={description}
-              onChange={this.handleChangeDescription}
-            />
-          </div>
-          <div className="buttons-container">
-            <button
-              type="submit"
-              className="submit-btn"
-              onClick={this.handleSubmit}
-            >
-              Submit
-            </button>
-            <button type="button" className="close-btn" onClick={onClose}>
-              Close
-            </button>
-          </div>
-        </form>
-      </div>
+      <form>
+        <div className="form-group">
+          <label htmlFor="name">Task name</label>
+          <input
+            type="text"
+            className="form-control"
+            id="name"
+            placeholder="Task name"
+            value={name}
+            onChange={this.handleChangeName}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <input
+            type="text"
+            className="form-control"
+            id="description"
+            placeholder="Task description"
+            value={description}
+            onChange={this.handleChangeDescription}
+          />
+        </div>
+        <div className="buttons-container">
+          <button
+            type="submit"
+            className="submit-btn"
+            onClick={this.handleSubmit}
+          >
+            Submit
+          </button>
+          <button type="button" className="close-btn" onClick={onClose}>
+            Close
+          </button>
+        </div>
+      </form>
     );
+  };
+
+  render() {
+    return <ModalComponent body={this.createTaskForm()} />;
   }
 }
 
-Modal.propTypes = {
+EditTaskModal.propTypes = {
   editedTask: PropTypes.shape({
     name: PropTypes.string.isRequired,
     description: PropTypes.string,
@@ -115,8 +119,8 @@ Modal.propTypes = {
   onClose: PropTypes.func.isRequired
 };
 
-Modal.defaultProps = {
+EditTaskModal.defaultProps = {
   editedTask: null,
 };
 
-export default Modal;
+export default EditTaskModal;
