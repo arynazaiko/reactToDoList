@@ -5,7 +5,7 @@ import ListItem from "./ListItem";
 
 import "./styles.scss";
 
-const ListGroup = ({ tasks, onComplete, onEdit, onDelete }) => {
+const ListGroup = ({ tasks, onComplete, onEdit, onDelete, onOpenTaskModal }) => {
   return (
     <ul className="list-group">
       {tasks.map(task => {
@@ -16,6 +16,7 @@ const ListGroup = ({ tasks, onComplete, onEdit, onDelete }) => {
             onComplete={onComplete}
             onEdit={onEdit}
             onDelete={onDelete}
+            onOpenTaskModal={onOpenTaskModal}
           />
         );
       })}

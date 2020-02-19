@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import ListGroup from "./ListGroup";
 import CreateTaskModal from "./CreateTaskModal";
 import EditTaskModal from "./EditTaskModal";
+import ShowTaskInfoModal from "./ShowTaskInfoModal";
 import connect from "./connect";
 
 import "./styles.scss";
@@ -13,7 +14,8 @@ class MainPage extends React.PureComponent {
     super(props);
     this.state = {
       isOpenCreateTaskModal: false,
-      editTaskId: null
+      editTaskId: null,
+      shownTaskId: null
     };
   }
 
@@ -48,14 +50,41 @@ class MainPage extends React.PureComponent {
     return tasks.find(task => task.id === editTaskId);
   };
 
+  handleOpenShowTaskModal = id => {
+    this.setState({
+      shownTaskId: id
+    });
+  };
+
+  handleCloseShowTaskModal = () => {
+    this.setState({
+      shownTaskId: null
+    });
+  };
+
+  getShownTask = () => {
+    const { shownTaskId } = this.state;
+    const { tasks } = this.props;
+
+    return tasks.find(task => task.id === shownTaskId);
+  };
+
+  getSubtasks = () => {
+    const { shownTaskId } = this.state;
+    const { subtasks } = this.props;
+
+    return subtasks.filter(subtask => subtask.taskId === shownTaskId);
+  }
+
   render() {
-    const { isOpenCreateTaskModal, editTaskId } = this.state;
+    const { isOpenCreateTaskModal, editTaskId, shownTaskId } = this.state;
     const {
       createTaskThunk,
       completeTaskThunk,
       editTaskThunk,
       deleteTaskThunk,
-      tasks
+      tasks,
+      createSubTaskThunk,
     } = this.props;
 
     return (
@@ -72,6 +101,7 @@ class MainPage extends React.PureComponent {
           onComplete={completeTaskThunk}
           onEdit={this.handleOpenEditModal}
           onDelete={deleteTaskThunk}
+          onOpenTaskModal={this.handleOpenShowTaskModal}
         />
 
         {isOpenCreateTaskModal ? (
@@ -88,6 +118,17 @@ class MainPage extends React.PureComponent {
             onSubmit={editTaskThunk}
             onClose={this.handleCloseEditModal}
             editedTask={this.getEditedTask()}
+          />
+        ) : (
+          ""
+        )}
+
+        {shownTaskId ? (
+          <ShowTaskInfoModal
+            shownTask={this.getShownTask()}
+            onClose={this.handleCloseShowTaskModal}
+            onSubmit={createSubTaskThunk}
+            subtasks={this.getSubtasks()}
           />
         ) : (
           ""

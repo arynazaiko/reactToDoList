@@ -4,7 +4,7 @@ import classnames from "classnames";
 
 import "./styles.scss";
 
-const ListItem = ({ onComplete, onEdit, onDelete, task }) => {
+const ListItem = ({ onComplete, onEdit, onDelete, task, onOpenTaskModal }) => {
   const handleComplete = () => {
     onComplete(task.id);
   };
@@ -17,6 +17,10 @@ const ListItem = ({ onComplete, onEdit, onDelete, task }) => {
     onDelete(task.id);
   };
 
+  const handleTaskClick = () => {
+    onOpenTaskModal(task.id);
+  }
+
   const classNames = classnames("task-container", {
     "list-group-item-done": task.isCompleted
   });
@@ -26,12 +30,12 @@ const ListItem = ({ onComplete, onEdit, onDelete, task }) => {
       <button type="button" className="btn" onClick={handleComplete}>
         <i className="fas fa-check"></i>
       </button>
-      <div className={classNames}>
+      <div className={classNames} onClick={handleTaskClick}>
         <div className="task-info">
           <span className="task-name">{task.name}</span>
           <div>{task.description}</div>
         </div>
-        <div className="btn-group">
+        <div className="btn-group" onClick={(e) => e.stopPropagation()}>
           <button type="button" onClick={handleEdit}>
             <i className="far fa-edit"></i>
           </button>
