@@ -1,0 +1,19 @@
+.subtask-item {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+
+  .delete-btn {
+    font-size: 16px;
+    padding: 6px;
+    border: none;
+    color: #292929;
+    background-color: #ffffff;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      color: #FF3384;
+    }
+  }
+}

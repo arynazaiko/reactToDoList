@@ -74,7 +74,7 @@ class MainPage extends React.PureComponent {
     const { subtasks } = this.props;
 
     return subtasks.filter(subtask => subtask.taskId === shownTaskId);
-  }
+  };
 
   render() {
     const { isOpenCreateTaskModal, editTaskId, shownTaskId } = this.state;
@@ -85,6 +85,7 @@ class MainPage extends React.PureComponent {
       deleteTaskThunk,
       tasks,
       createSubTaskThunk,
+      deleteSubTaskThunk
     } = this.props;
 
     return (
@@ -129,6 +130,7 @@ class MainPage extends React.PureComponent {
             onClose={this.handleCloseShowTaskModal}
             onSubmit={createSubTaskThunk}
             subtasks={this.getSubtasks()}
+            onDelete={deleteSubTaskThunk}
           />
         ) : (
           ""
@@ -149,6 +151,15 @@ MainPage.propTypes = {
       description: PropTypes.string,
       isCompleted: PropTypes.bool.isRequired,
       id: PropTypes.number.isRequired
+    }).isRequired
+  ),
+  createSubTaskThunk: PropTypes.func.isRequired,
+  deleteSubTaskThunk: PropTypes.func.isRequired,
+  subtasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      taskId: PropTypes.number.isRequired
     }).isRequired
   )
 };
