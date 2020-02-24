@@ -5,7 +5,8 @@ import {
   completeTaskThunk,
   editTaskThunk,
   deleteTaskThunk,
-  createSubTaskThunk
+  createSubTaskThunk,
+  deleteSubTaskThunk
 } from "../redux/thunks";
 
 const mapStateToProps = state => {
@@ -13,7 +14,7 @@ const mapStateToProps = state => {
 
   return {
     tasks: tasks.tasks,
-    subtasks: subtasks.subtasks,
+    subtasks: subtasks.subtasks
   };
 };
 
@@ -22,7 +23,8 @@ const mapDispatchToProps = {
   completeTaskThunk: completeTaskThunk,
   editTaskThunk: editTaskThunk,
   deleteTaskThunk: deleteTaskThunk,
-  createSubTaskThunk: createSubTaskThunk
+  createSubTaskThunk: createSubTaskThunk,
+  deleteSubTaskThunk: deleteSubTaskThunk
 };
 
 export default connect(mapStateToProps, mapDispatchToProps);

@@ -23,6 +23,14 @@ const subTaskReducer = (state = defaultState, action) => {
         currentId: state.currentId + 1
       };
 
+      case "DELETE_SUBTASK":
+        subtasks = state.subtasks.filter(subtask => subtask.id !== action.payload);
+
+      return {
+        ...state,
+        subtasks: subtasks,
+      };
+
     default:
       return state;
   }
