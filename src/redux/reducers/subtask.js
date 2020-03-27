@@ -5,7 +5,8 @@ const defaultState = {
 
 const defaultSubTask = {
   name: "",
-  id: null
+  id: null,
+  taskId: null,
 };
 
 const subTaskReducer = (state = defaultState, action) => {

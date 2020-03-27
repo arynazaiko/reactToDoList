@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import ModalComponent from "../CommonModal";
@@ -6,44 +6,17 @@ import SubtaskItem from "./SubtaskItem";
 
 import "./styles.scss";
 
-class ShowTaskInfoModal extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      params: {
-        name: "",
-        taskId: props.shownTask.id
-      }
-    };
-  }
+const ShowTaskInfoModal = ({ shownTask, onClose, onSubmit, subtasks, onDelete }) => {
+  const [subtaskName, setSubtaskName] = useState("");
 
-  handleChangeName = e => {
-    const { params } = this.state;
-
-    this.setState({
-      params: { ...params, name: e.target.value }
-    });
-  };
-
-  handleSubmit = e => {
-    const { params } = this.state;
-    const { onSubmit } = this.props;
-
+  const handleSubtaskSubmit = e => {
     e.preventDefault();
-    onSubmit(params);
+    onSubmit({ name: subtaskName, taskId: shownTask.id });
 
-    this.setState({
-      params: {
-        ...params,
-        name: ""
-      }
-    });
+    setSubtaskName('');
   };
 
-  shownTaskInfo = () => {
-    const { name } = this.state.params;
-    const { shownTask, onClose, subtasks, onDelete } = this.props;
-
+  const shownTaskInfo = () => {
     return (
       <div className="shown-task-container">
         <div className="task-info-container">
@@ -69,13 +42,13 @@ class ShowTaskInfoModal extends React.PureComponent {
           <input
             type="text"
             placeholder="Subtask"
-            value={name}
-            onChange={this.handleChangeName}
+            value={subtaskName}
+            onChange={e => setSubtaskName(e.target.value)}
           />
           <button
             type="submit"
             className="submit-btn"
-            onClick={this.handleSubmit}
+            onClick={handleSubtaskSubmit}
           >
             Add subtask
           </button>
@@ -87,9 +60,7 @@ class ShowTaskInfoModal extends React.PureComponent {
     );
   };
 
-  render() {
-    return <ModalComponent body={this.shownTaskInfo()} />;
-  }
+  return <ModalComponent body={shownTaskInfo()} />;
 }
 
 ShowTaskInfoModal.propTypes = {

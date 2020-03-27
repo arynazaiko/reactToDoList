@@ -1,68 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import ModalComponent from "../CommonModal";
 
 import "./styles.scss";
 
-class EditTaskModal extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      params: {
-        name: "",
-        description: ""
-      }
-    };
-  }
+const EditTaskModal = ({ onSubmit, onClose, editedTask }) => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
-  componentDidMount() {
-    const { params } = this.state;
-    const { editedTask } = this.props;
+  const params = {
+    name,
+    description
+  };
 
+  useEffect(() => {
     if (editedTask) {
-      this.setState({
-        params: { ...params, ...editedTask }
-      });
+      setName(editedTask.name);
+      setDescription(editedTask.description);
     }
-  }
+  }, [editedTask]);
 
-  handleChangeName = e => {
-    const { params } = this.state;
-
-    this.setState({
-      params: { ...params, name: e.target.value }
-    });
-  };
-
-  handleChangeDescription = e => {
-    const { params } = this.state;
-
-    this.setState({
-      params: { ...params, description: e.target.value }
-    });
-  };
-
-  handleSubmit = e => {
-    const { params } = this.state;
-    const { onSubmit, onClose } = this.props;
-
+  const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(params);
+    onSubmit({ ...params, id: editedTask.id });
     onClose();
 
-    this.setState({
-      params: {
-        name: "",
-        description: ""
-      }
-    });
+    setName("");
+    setDescription("");
   };
 
-  createTaskForm = () => {
-    const { name, description } = this.state.params;
-    const { onClose } = this.props;
-
+  const createTaskForm = () => {
     return (
       <form>
         <div className="form-group">
@@ -73,7 +41,7 @@ class EditTaskModal extends React.PureComponent {
             id="name"
             placeholder="Task name"
             value={name}
-            onChange={this.handleChangeName}
+            onChange={e => setName(e.target.value)}
           />
         </div>
         <div className="form-group">
@@ -84,15 +52,11 @@ class EditTaskModal extends React.PureComponent {
             id="description"
             placeholder="Task description"
             value={description}
-            onChange={this.handleChangeDescription}
+            onChange={e => setDescription(e.target.value)}
           />
         </div>
         <div className="buttons-container">
-          <button
-            type="submit"
-            className="submit-btn"
-            onClick={this.handleSubmit}
-          >
+          <button type="submit" className="submit-btn" onClick={handleSubmit}>
             Submit
           </button>
           <button type="button" className="close-btn" onClick={onClose}>
@@ -103,10 +67,8 @@ class EditTaskModal extends React.PureComponent {
     );
   };
 
-  render() {
-    return <ModalComponent body={this.createTaskForm()} />;
-  }
-}
+  return <ModalComponent body={createTaskForm()} />;
+};
 
 EditTaskModal.propTypes = {
   editedTask: PropTypes.shape({
@@ -120,7 +82,7 @@ EditTaskModal.propTypes = {
 };
 
 EditTaskModal.defaultProps = {
-  editedTask: null,
+  editedTask: null
 };
 
 export default EditTaskModal;

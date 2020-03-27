@@ -1,57 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import ModalComponent from "../CommonModal";
 
 import "./styles.scss";
 
-class CreateTaskModal extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      params: {
-        name: "",
-        description: ""
-      }
-    };
-  }
+const CreateTaskModal = ({ onSubmit, onClose }) => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
-  handleChangeName = e => {
-    const { params } = this.state;
-
-    this.setState({
-      params: { ...params, name: e.target.value }
-    });
+  const params = {
+    name,
+    description
   };
 
-  handleChangeDescription = e => {
-    const { params } = this.state;
-
-    this.setState({
-      params: { ...params, description: e.target.value }
-    });
-  };
-
-  handleSubmit = e => {
-    const { params } = this.state;
-    const { onSubmit, onClose } = this.props;
-
+  const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(params);
+    onSubmit({ ...params });
     onClose();
 
-    this.setState({
-      params: {
-        name: "",
-        description: ""
-      }
-    });
+    setName("");
+    setDescription("");
   };
 
-  createTaskForm = () => {
-    const { name, description } = this.state.params;
-    const { onClose } = this.props;
-
+  const createTaskForm = () => {
     return (
       <form>
         <div className="form-group">
@@ -60,28 +32,24 @@ class CreateTaskModal extends React.PureComponent {
             type="text"
             className="form-control"
             id="name"
-            placeholder="Task name"
+            placeholder="Name"
             value={name}
-            onChange={this.handleChangeName}
+            onChange={e => setName(e.target.value)}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">Task description</label>
           <input
             type="text"
             className="form-control"
             id="description"
-            placeholder="Task description"
+            placeholder="Description"
             value={description}
-            onChange={this.handleChangeDescription}
+            onChange={e => setDescription(e.target.value)}
           />
         </div>
         <div className="buttons-container">
-          <button
-            type="submit"
-            className="submit-btn"
-            onClick={this.handleSubmit}
-          >
+          <button type="submit" className="submit-btn" onClick={handleSubmit}>
             Submit
           </button>
           <button type="button" className="close-btn" onClick={onClose}>
@@ -92,10 +60,8 @@ class CreateTaskModal extends React.PureComponent {
     );
   };
 
-  render() {
-    return <ModalComponent body={this.createTaskForm()} />;
-  }
-}
+  return <ModalComponent body={createTaskForm()} />;
+};
 
 CreateTaskModal.propTypes = {
   onSubmit: PropTypes.func.isRequired,
