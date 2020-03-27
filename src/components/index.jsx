@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import ListGroup from "./ListGroup";
@@ -9,136 +9,101 @@ import connect from "./connect";
 
 import "./styles.scss";
 
-class MainPage extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpenCreateTaskModal: false,
-      editTaskId: null,
-      shownTaskId: null
-    };
-  }
+const MainPage = ({
+  tasks,
+  subtasks,
+  createTaskThunk,
+  completeTaskThunk,
+  editTaskThunk,
+  deleteTaskThunk,
+  createSubTaskThunk,
+  deleteSubTaskThunk
+}) => {
+  const [isOpenCreateTaskModal, changeCreateTaskModalVisibility] = useState(
+    false
+  );
+  const [editTaskId, setEditTaskId] = useState(null);
+  const [shownTaskId, setShownTaskId] = useState(null);
 
-  handleOpen = () => {
-    this.setState({
-      isOpenCreateTaskModal: true
-    });
+  const handleOpen = () => {
+    changeCreateTaskModalVisibility(true);
   };
 
-  handleClose = () => {
-    this.setState({
-      isOpenCreateTaskModal: false
-    });
+  const handleClose = () => {
+    changeCreateTaskModalVisibility(false);
   };
 
-  handleOpenEditModal = id => {
-    this.setState({
-      editTaskId: id
-    });
+  const handleOpenEditModal = id => {
+    setEditTaskId(id);
   };
 
-  handleCloseEditModal = () => {
-    this.setState({
-      editTaskId: null
-    });
+  const handleCloseEditModal = () => {
+    setEditTaskId(null);
   };
 
-  getEditedTask = () => {
-    const { editTaskId } = this.state;
-    const { tasks } = this.props;
-
+  const getEditedTask = () => {
     return tasks.find(task => task.id === editTaskId);
   };
 
-  handleOpenShowTaskModal = id => {
-    this.setState({
-      shownTaskId: id
-    });
+  const handleOpenShowTaskModal = id => {
+    setShownTaskId(id);
   };
 
-  handleCloseShowTaskModal = () => {
-    this.setState({
-      shownTaskId: null
-    });
+  const handleCloseShowTaskModal = () => {
+    setShownTaskId(null);
   };
 
-  getShownTask = () => {
-    const { shownTaskId } = this.state;
-    const { tasks } = this.props;
-
+  const getShownTask = () => {
     return tasks.find(task => task.id === shownTaskId);
   };
 
-  getSubtasks = () => {
-    const { shownTaskId } = this.state;
-    const { subtasks } = this.props;
-
+  const getSubtasks = () => {
     return subtasks.filter(subtask => subtask.taskId === shownTaskId);
   };
 
-  render() {
-    const { isOpenCreateTaskModal, editTaskId, shownTaskId } = this.state;
-    const {
-      createTaskThunk,
-      completeTaskThunk,
-      editTaskThunk,
-      deleteTaskThunk,
-      tasks,
-      createSubTaskThunk,
-      deleteSubTaskThunk
-    } = this.props;
+  return (
+    <div className="container">
+      <button type="button" className="btn-add-task" onClick={handleOpen}>
+        <i className="fas fa-plus"></i>
+      </button>
+      <ListGroup
+        tasks={tasks}
+        onComplete={completeTaskThunk}
+        onEdit={handleOpenEditModal}
+        onDelete={deleteTaskThunk}
+        onOpenTaskModal={handleOpenShowTaskModal}
+      />
 
-    return (
-      <div className="container">
-        <button
-          type="button"
-          className="btn-add-task"
-          onClick={this.handleOpen}
-        >
-          <i className="fas fa-plus"></i>
-        </button>
-        <ListGroup
-          tasks={tasks}
-          onComplete={completeTaskThunk}
-          onEdit={this.handleOpenEditModal}
-          onDelete={deleteTaskThunk}
-          onOpenTaskModal={this.handleOpenShowTaskModal}
+      {isOpenCreateTaskModal ? (
+        <CreateTaskModal onSubmit={createTaskThunk} onClose={handleClose} />
+      ) : (
+        ""
+      )}
+
+      {editTaskId ? (
+        <EditTaskModal
+          onSubmit={editTaskThunk}
+          onClose={handleCloseEditModal}
+          editedTask={getEditedTask()}
         />
+      ) : (
+        ""
+      )}
 
-        {isOpenCreateTaskModal ? (
-          <CreateTaskModal
-            onSubmit={createTaskThunk}
-            onClose={this.handleClose}
-          />
-        ) : (
-          ""
-        )}
-
-        {editTaskId ? (
-          <EditTaskModal
-            onSubmit={editTaskThunk}
-            onClose={this.handleCloseEditModal}
-            editedTask={this.getEditedTask()}
-          />
-        ) : (
-          ""
-        )}
-
-        {shownTaskId ? (
-          <ShowTaskInfoModal
-            shownTask={this.getShownTask()}
-            onClose={this.handleCloseShowTaskModal}
-            onSubmit={createSubTaskThunk}
-            subtasks={this.getSubtasks()}
-            onDelete={deleteSubTaskThunk}
-          />
-        ) : (
-          ""
-        )}
-      </div>
-    );
-  }
-}
+      {shownTaskId ? (
+        <ShowTaskInfoModal
+          shownTask={getShownTask()}
+          onClose={handleCloseShowTaskModal}
+          onSubmit={createSubTaskThunk}
+          subtasks={getSubtasks()}
+          onDelete={deleteSubTaskThunk}
+        />
+      ) : (
+        ""
+      )}
+    </div>
+  );
+};
 
 MainPage.propTypes = {
   createTaskThunk: PropTypes.func.isRequired,
