@@ -5,8 +5,8 @@
   margin: 0 auto;
   margin-top: 16px;
   padding: 16px;
-  border-radius: 4px;
-  background: #2b0f58;
+  border-radius: 8px;
+  background: #ffffff;
 }
 
 .btn-add-task {
@@ -18,12 +18,12 @@
   width: 46px;
   height: 46px;
   font-size: 20px;
-  border: 1px solid #FF3384;
+  border: 1px solid #8453FF;
   border-radius: 50%;
   color: #ffffff;
-  background: #FF3384;
+  background: #8453FF;
+  z-index: 1000000000;
   text-transform: uppercase;
-  transition: background-color .25s ease-out;
   outline: none;
 
   &:hover {

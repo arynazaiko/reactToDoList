@@ -8,17 +8,17 @@
 }
 
 .btn {
-  padding: 4px 8px;
-  border: 1px solid #F3F3F3;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #F3F3F3;
   border-radius: 4px;
-  background-color: #F3F3F3;
-  color: #292929;
+  font-size: 14px;
+  color: #8453FF;
+  background-color: #ffffff;
+  outline: none;
 
   &:hover {
     cursor: pointer;
-    color: #F3F3F3;
-    background-color: #FFB402;
-    border: 1px solid #FFB402;
   }
 }
 
@@ -26,10 +26,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80%;
-  padding: 6px 12px;
+  width: 90%;
+  padding: 6px 6px;
   border-radius: 6px;
-  background-color: #F3F3F3;
 
   &:hover {
     cursor: pointer;
@@ -37,14 +36,13 @@
 }
 
 .list-group-item-done {
+  color: #C9C9C9;
   text-decoration: line-through;
-  background-color: #FFB402;
 }
 
 .task-name {
   font-size: 16px;
   font-weight: 500;
-  color: #292929;
 }
 
 .btn-group {
