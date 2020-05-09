@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Mont';
+  src: url('./fonts/Mont-Regular.eot');
+  src: url('./fonts/Mont-Regular.eot?#iefix') format('embedded-opentype'),
+      url('./fonts/Mont-Regular.woff2') format('woff2'),
+      url('./fonts/Mont-Regular.woff') format('woff'),
+      url('./fonts/Mont-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./fonts/Roboto-Regular.eot');
+  src: url('./fonts/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+      url('./fonts/Roboto-Regular.woff2') format('woff2'),
+      url('./fonts/Roboto-Regular.woff') format('woff'),
+      url('./fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
