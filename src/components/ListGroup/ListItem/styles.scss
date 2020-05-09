@@ -1,20 +1,22 @@
+@import "~styles/index";
+
 .list-group-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
   font-size: 13px;
-  color: #4a4a4a;
+  color: $clr-main-text;
 }
 
 .btn {
   width: 24px;
   height: 24px;
-  border: 2px solid #F3F3F3;
+  border: 2px solid $clr-border;
   border-radius: 4px;
   font-size: 14px;
-  color: #8453FF;
-  background-color: #ffffff;
+  color: $clr-main-blocks-bg;
+  background-color: $clr-light;
   outline: none;
 
   &:hover {
@@ -32,31 +34,37 @@
 
   &:hover {
     cursor: pointer;
+
+    .btn-group {
+      button {
+        color: $clr-icons;
+
+        &:hover {
+          color: $clr-accent-blocks-bg;
+        }
+      }
+    }
   }
 }
 
 .list-group-item-done {
-  color: #C9C9C9;
+  color: $clr-secondary-text;
   text-decoration: line-through;
 }
 
 .task-name {
+  font-family: "Mont", sans-serif;
   font-size: 16px;
-  font-weight: 500;
 }
 
 .btn-group {
   button {
-    font-size: 16px;
+    font-size: 15px;
     padding: 6px;
     border: none;
-    color: #292929;
+    color: $clr-light;
     background: none;
     cursor: pointer;
     outline: none;
-
-    &:hover {
-      color: #FF3384;
-    }
   }
 }

@@ -1,5 +1,7 @@
+@import "~styles/index";
+
 .shown-task-container {
-  background: white;
+  background: $clr-light;
   padding: 16px;
   border-radius: 4px;
 }
@@ -10,7 +12,7 @@
   .title {
     font-size: 16px;
     font-weight: 500;
-    color: #292929;
+    color: $clr-main-text;
   }
 }
 
@@ -29,7 +31,7 @@
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid $clr-main-text;
 
     &:focus {
       outline: none;
@@ -41,10 +43,10 @@
     font-size: 14px;
     font-weight: 400;
     padding: 6px 16px;
-    border: 1px solid #03C6FA;
+    border: 1px solid $clr-main-blocks-bg;
     border-radius: 4px;
-    background: #03C6FA;
-    color: #ffffff;
+    background: $clr-main-blocks-bg;
+    color: $clr-light;
     text-transform: uppercase;
     outline: none;
 
@@ -63,10 +65,10 @@
   font-size: 14px;
   font-weight: 400;
   padding: 6px 16px;
-  border: 1px solid #FF3384;
+  border: 1px solid $clr-accent-blocks-bg;
   border-radius: 4px;
-  background: #FF3384;
-  color: #ffffff;
+  background: $clr-accent-blocks-bg;
+  color: $clr-light;
   text-transform: uppercase;
   outline: none;
 

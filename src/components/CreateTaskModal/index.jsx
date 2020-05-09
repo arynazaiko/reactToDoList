@@ -27,12 +27,12 @@ const CreateTaskModal = ({ onSubmit, onClose }) => {
     return (
       <form>
         <div className="form-group">
-          <label htmlFor="name">Task name</label>
+          <label htmlFor="name">Task title</label>
           <input
             type="text"
             className="form-control"
             id="name"
-            placeholder="Name"
+            placeholder="Enter title"
             value={name}
             onChange={e => setName(e.target.value)}
           />
