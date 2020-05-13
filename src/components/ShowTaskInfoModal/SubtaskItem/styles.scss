@@ -1,3 +1,5 @@
+@import "~styles/index";
+
 .subtask-item {
   display: flex;
   justify-content: space-between;
@@ -7,13 +9,13 @@
     font-size: 16px;
     padding: 6px;
     border: none;
-    color: #292929;
-    background-color: #ffffff;
+    color: $clr-main-text;
+    background-color: $clr-light;
     cursor: pointer;
     outline: none;
 
     &:hover {
-      color: #FF3384;
+      color: $clr-accent-blocks-bg;
     }
   }
 }

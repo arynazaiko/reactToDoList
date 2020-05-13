@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 
 import "./styles.scss";
 
 const ListItem = ({ onComplete, onEdit, onDelete, task, onOpenTaskModal }) => {
+  const [completeTask, setCompleteTask] = useState(false);
+
   const handleComplete = () => {
     onComplete(task.id);
+
+    setCompleteTask(true);
   };
 
   const handleEdit = () => {
@@ -19,16 +23,16 @@ const ListItem = ({ onComplete, onEdit, onDelete, task, onOpenTaskModal }) => {
 
   const handleTaskClick = () => {
     onOpenTaskModal(task.id);
-  }
+  };
 
   const classNames = classnames("task-container", {
-    "list-group-item-done": task.isCompleted
+    "list-group-item-done": task.isCompleted,
   });
 
   return (
     <li className="list-group-item">
       <button type="button" className="btn" onClick={handleComplete}>
-        <i className="fas fa-check"></i>
+        {completeTask && <i className="fas fa-check"></i>}
       </button>
       <div className={classNames} onClick={handleTaskClick}>
         <div className="task-info">
@@ -56,8 +60,8 @@ ListItem.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string,
     isCompleted: PropTypes.bool.isRequired,
-    id: PropTypes.number.isRequired
-  }).isRequired
+    id: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default ListItem;

@@ -1,12 +1,17 @@
+@import "~styles/index";
+
 form {
   width: 300px;
   padding: 16px;
   border-radius: 4px;
-  background: white;
+  background: $clr-light;
 
   label {
     display: block;
     padding-bottom: 6px;
+    font-family: 'Mont', sans-serif;
+    font-size: 16px;
+    color: $clr-main-text;
   }
 
   input {
@@ -16,34 +21,35 @@ form {
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid $clr-main-text;
 
     &:focus {
+      border-bottom: 2px solid $clr-accent-blocks-bg;
+      margin-bottom: 11px;
       outline: none;
     }
   }
 }
 
-
 .buttons-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 12px;
 
   .submit-btn {
     width: 45%;
+    font-family: 'Mont', sans-serif;
     font-size: 14px;
-    font-weight: 400;
     padding: 6px 16px;
-    border: 1px solid #03C6FA;
+    border: 1px solid $clr-main-blocks-bg;
     border-radius: 4px;
-    background: #03C6FA;
-    color: #ffffff;
+    background: $clr-main-blocks-bg;
+    color: $clr-light;
     text-transform: uppercase;
     outline: none;
 
     &:hover {
-      // background: #BF4949;
       cursor: pointer;
     }
 
@@ -54,18 +60,17 @@ form {
 
   .close-btn {
     width: 45%;
+    font-family: 'Mont', sans-serif;
     font-size: 14px;
-    font-weight: 400;
     padding: 6px 16px;
-    border: 1px solid #FF3384;
+    border: 1px solid $clr-accent-blocks-bg;
     border-radius: 4px;
-    background: #FF3384;
-    color: #ffffff;
+    background: $clr-accent-blocks-bg;
+    color: $clr-light;
     text-transform: uppercase;
     outline: none;
 
     &:hover {
-      // background: #BF4949;
       cursor: pointer;
     }
 
